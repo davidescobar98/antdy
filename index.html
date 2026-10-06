@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Antdy, tu hormiga financiera</title>
+<meta name="description" content="Antdy lee los extractos de tu banco, ordena tus gastos y te dice cuánto ahorras cada mes. Gratis para Windows. Tus datos se quedan en tu ordenador.">
+<meta name="theme-color" content="#88C1B7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Antdy, tu hormiga financiera">
+<meta property="og:description" content="Sabe cuánto ahorras de verdad, sin dar tus datos a nadie. Gratis para Windows.">
+<meta property="og:url" content="https://davidescobar98.github.io/antdy/">
+<meta property="og:image" content="https://davidescobar98.github.io/antdy/img/icono.png">
+<link rel="canonical" href="https://davidescobar98.github.io/antdy/">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/icono.png">
+<style>
+/* Calma aguamarina, como la app: bloque aguamarina arriba, página blanca, listas con líneas finas y naranja solo para lo que pide atención. */
+/* fuentes:inicio */
+@font-face { font-family: 'Bricolage Grotesque'; font-style: normal; font-weight: 600 800; font-display: swap; src: url('fuentes/bricolage-grotesque.woff2') format('woff2'); }
+@font-face { font-family: 'Figtree'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('fuentes/figtree.woff2') format('woff2'); }
+/* fuentes:fin */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F1F5F4;
+  --soft: #DCEFEB;
+  --hero: #88C1B7;
+  --hero-ink: #0C2443;
+  --hero-muted: #1E3B5A;
+  --ink: #0C2443;
+  --muted: #5A6B7E;
+  --line: #E4ECEA;
+  --accent: #F4875A;
+  --accent-ink: #9A3E17;
+  --accent-soft: #FDE6DA;
+  --button: #0C2443;
+  --button-ink: #FFFFFF;
+  --chip: #FFFFFF;
+  --chip-ink: #0C2443;
+  --good: #1F7A55;
+  --track: #EAF1EF;
+  --plus-bg: #0C2443;
+  --plus-ink: #FFFFFF;
+  --plus-muted: #B6D6D0;
+  --plus-line: #1F3349;
+  --plus-button: #88C1B7;
+  --plus-button-ink: #0C2443;
+  --frame: #0C2443;
+  --logo-ant: #FFFFFF;
+  --shadow: 0 24px 48px rgba(12, 36, 67, 0.12);
+  --display: 'Bricolage Grotesque', 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --max: 1120px;
+  --gutter: 20px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1828; --surface: #13243A; --soft: #16343A; --hero: #1F4D4C; --hero-ink: #EAF7F4; --hero-muted: #B6D6D0;
+    --ink: #EAF2F7; --muted: #A7B7C6; --line: #1F3349; --accent: #FF9A6C; --accent-ink: #FFB48F; --accent-soft: #3A2418;
+    --button: #88C1B7; --button-ink: #0B1828; --chip: #0B1828; --chip-ink: #EAF7F4; --good: #6FD3A5; --track: #1E3247;
+    --plus-bg: #1F4D4C; --plus-ink: #EAF7F4; --plus-muted: #B6D6D0; --plus-line: #2E6261; --plus-button: #EAF7F4; --plus-button-ink: #0B1828;
+    --frame: #050D17; --logo-ant: #FF9A6C; --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1828; --surface: #13243A; --soft: #16343A; --hero: #1F4D4C; --hero-ink: #EAF7F4; --hero-muted: #B6D6D0;
+  --ink: #EAF2F7; --muted: #A7B7C6; --line: #1F3349; --accent: #FF9A6C; --accent-ink: #FFB48F; --accent-soft: #3A2418;
+  --button: #88C1B7; --button-ink: #0B1828; --chip: #0B1828; --chip-ink: #EAF7F4; --good: #6FD3A5; --track: #1E3247;
+  --plus-bg: #1F4D4C; --plus-ink: #EAF7F4; --plus-muted: #B6D6D0; --plus-line: #2E6261; --plus-button: #EAF7F4; --plus-button-ink: #0B1828;
+  --frame: #050D17; --logo-ant: #FF9A6C; --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.wrap { max-width: var(--max); margin-inline: auto; }
+.band { padding-inline: var(--gutter); }
+
+.eyebrow { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4.2vw, 3rem); line-height: 1.06; letter-spacing: -0.02em; }
+.lead { font-size: 1.1875rem; color: var(--muted); max-width: 38rem; }
+.num { font-variant-numeric: tabular-nums; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; background: var(--button); color: var(--button-ink); transition: transform 0.15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn-quiet { background: var(--chip); color: var(--chip-ink); }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
+.pill { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; font-weight: 700; background: var(--chip); color: var(--muted); }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.02em; background: var(--accent-soft); color: var(--accent-ink); vertical-align: 0.15em; }
+
+/* Cabecera aguamarina, con el mismo borde redondeado que el bloque del mes en la app */
+.hero { background: var(--hero); color: var(--hero-ink); border-radius: 0 0 48px 48px; overflow: hidden; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-block: 20px; }
+.logo { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; }
+.logo img { width: 34px; height: auto; }
+.wordmark { font-family: var(--display); font-weight: 800; font-size: 1.625rem; letter-spacing: -0.02em; color: var(--hero-ink); }
+.wordmark b { font-weight: 800; color: var(--logo-ant); }
+.nav-links { display: flex; flex-wrap: wrap; gap: 4px 24px; font-weight: 600; font-size: 0.9375rem; }
+.nav-links a { text-decoration: none; padding-block: 10px; }
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 40px; align-items: end; padding-top: 40px; }
+.hero-copy { padding-bottom: 72px; }
+.hero-copy .eyebrow { color: var(--hero-muted); }
+.hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.75rem, 6.2vw, 4.75rem); line-height: 1; letter-spacing: -0.03em; margin-top: 16px; }
+.hero-copy > p.sub { margin-top: 22px; font-size: 1.25rem; color: var(--hero-muted); max-width: 33rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero-note { margin-top: 16px; font-size: 0.9375rem; color: var(--hero-muted); }
+.hero-visual { display: flex; justify-content: center; align-items: flex-end; gap: 12px; }
+.phone-cut { width: min(300px, 70%); border: 9px solid var(--frame); border-bottom: 0; border-radius: 40px 40px 0 0; overflow: hidden; background: #FFFFFF; box-shadow: var(--shadow); }
+.hero-ant { flex: none; width: min(110px, 24%); margin-bottom: 28px; }
+
+/* Formatos que lee */
+.formats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px; padding-block: 36px 0; font-weight: 700; }
+.formats span:first-child { font-weight: 500; color: var(--muted); }
+
+/* Privacidad */
+.section { padding-top: 112px; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 48px; }
+.trio > div { border-top: 2px solid var(--ink); padding-top: 20px; }
+.trio h3 { font-size: 1.25rem; font-weight: 700; margin: 12px 0 6px; }
+.trio p { color: var(--muted); }
+.icon { width: 28px; height: 28px; color: var(--good); }
+
+/* En el ordenador */
+.window { margin-top: 48px; border-radius: 18px; overflow: hidden; background: var(--bg); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.window-bar { display: flex; align-items: center; gap: 8px; height: 38px; padding-inline: 16px; background: var(--surface); }
+.window-bar span { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+.window img { width: 100%; height: auto; }
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; margin-top: 40px; }
+.feature { display: flex; gap: 18px; padding-block: 22px; border-bottom: 1px solid var(--line); }
+.feature .icon { flex: none; margin-top: 2px; }
+.feature h3 { font-size: 1.1875rem; font-weight: 700; margin-bottom: 4px; }
+.feature p { color: var(--muted); }
+
+/* Móvil */
+.mobile { background: var(--soft); border-radius: 36px; padding: 56px clamp(24px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+.mobile .eyebrow { color: var(--good); }
+.mobile .lead { color: var(--muted); margin-top: 18px; }
+.checks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+.checks li { display: flex; gap: 12px; }
+.checks svg { flex: none; width: 22px; height: 22px; margin-top: 3px; color: var(--good); }
+.store-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.phones { display: flex; justify-content: center; gap: 16px; }
+.phone { width: 44%; max-width: 220px; border: 6px solid var(--frame); border-radius: 26px; overflow: hidden; background: #FFFFFF; }
+.phones .phone:nth-child(2) { margin-top: 48px; }
+
+/* Plus */
+.plus { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.plus .eyebrow { color: var(--accent-ink); }
+.plus-list { margin-top: 28px; }
+.plus-list > div { display: flex; gap: 14px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.plus-list svg { flex: none; width: 22px; height: 22px; margin-top: 3px; color: var(--accent-ink); }
+.plus-list span { color: var(--muted); }
+.plan { border: 1px solid var(--line); border-radius: 28px; padding: 32px; background: var(--bg); box-shadow: var(--shadow); }
+.plan-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 0.9375rem; }
+.plan h3 { font-family: var(--display); font-weight: 800; font-size: 1.75rem; line-height: 1.15; margin: 20px 0 6px; }
+.plan .bar { height: 12px; border-radius: 999px; background: var(--track); overflow: hidden; margin-top: 22px; }
+.plan .bar div { width: 38%; height: 100%; border-radius: 999px; background: var(--good); }
+.plan .ok { margin-top: 8px; font-weight: 600; color: var(--good); }
+.plan ul { list-style: none; padding: 0; margin: 22px 0 0; border-top: 1px solid var(--line); }
+.plan li { padding-block: 14px; border-bottom: 1px solid var(--line); }
+.plan li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+/* Precio */
+.prices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 900px; margin: 48px auto 0; }
+.price { border-radius: 28px; padding: 36px; display: flex; flex-direction: column; border: 1px solid var(--line); }
+.price h3 { font-size: 1.375rem; font-weight: 700; }
+.price .amount { font-family: var(--display); font-weight: 800; font-size: 3.5rem; line-height: 1.1; margin-top: 8px; }
+.price .terms { color: var(--muted); margin-top: 4px; }
+.price ul { list-style: none; padding: 0; margin: 20px 0 28px; }
+.price li { padding-block: 10px; border-top: 1px solid var(--line); }
+.price .btn { margin-top: auto; }
+.price .btn-quiet { background: var(--surface); }
+.price-plus { background: var(--plus-bg); color: var(--plus-ink); border-color: var(--plus-bg); }
+.price-plus .terms { color: var(--plus-muted); }
+.price-plus li { border-top-color: var(--plus-line); }
+.price-plus .btn { background: var(--plus-button); color: var(--plus-button-ink); }
+.price-plus .trial { margin-top: 12px; text-align: center; font-size: 0.9375rem; color: var(--plus-muted); }
+.price-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.price-head .tag { background: var(--accent); color: #0C2443; }
+.fine { text-align: center; color: var(--muted); font-size: 0.9375rem; margin-top: 20px; }
+
+/* Preguntas */
+.faq { max-width: 760px; margin-inline: auto; }
+.faq details { border-bottom: 1px solid var(--line); padding-block: 18px; }
+.faq summary { cursor: pointer; font-weight: 700; font-size: 1.1875rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--muted); }
+.faq details[open] summary::after { content: '−'; }
+.faq details p { margin-top: 10px; color: var(--muted); max-width: 40rem; }
+
+/* Descargar */
+.cta { background: var(--hero); color: var(--hero-ink); border-radius: 36px; padding: 48px clamp(24px, 5vw, 64px); display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+.cta img { width: 96px; height: auto; }
+.cta > div { flex: 1 1 320px; min-width: 0; }
+.cta h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; }
+.cta p { margin-top: 8px; color: var(--hero-muted); font-size: 1.125rem; }
+.cta .version { margin-top: 10px; font-size: 0.875rem; }
+
+.footer { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-block: 56px 48px; color: var(--muted); font-size: 0.9375rem; }
+.footer span:first-child { margin-right: auto; }
+.footer a { text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .hero-grid, .mobile, .plus { grid-template-columns: minmax(0, 1fr); }
+  .hero-copy { padding-bottom: 8px; }
+  .trio { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .features, .prices { grid-template-columns: minmax(0, 1fr); }
+  .section { padding-top: 88px; }
+}
+@media (max-width: 520px) {
+  :root { --gutter: 16px; }
+  .hero { border-radius: 0 0 32px 32px; }
+  .nav-links { order: 3; width: 100%; gap: 0 18px; }
+  .mobile, .cta { border-radius: 28px; }
+  .price, .plan { padding: 26px; }
+  .phones { gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero band">
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a class="logo" href="#inicio" aria-label="Antdy, inicio">
+        <img src="img/hormiga.png" alt="" width="34" height="37">
+        <span class="wordmark"><b>Ant</b>dy</span>
+      </a>
+      <div class="nav-links">
+        <a href="#privacidad">Privacidad</a>
+        <a href="#ordenador">Funciones</a>
+        <a href="#movil">Móvil</a>
+        <a href="#precio">Precio</a>
+        <a href="#preguntas">Preguntas</a>
+      </div>
+      <a class="btn" href="#descargar">Descargar gratis</a>
+    </nav>
+
+    <div class="hero-grid" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">Para Windows · pronto en Android y iPhone</p>
+        <h1>¿Cuánto has ahorrado este mes?</h1>
+        <p class="sub">Antdy lee los extractos de tu banco, ordena tus gastos solo y te lo dice en una cifra. Sin cuentas ni servidores: tus datos se quedan en tu ordenador.</p>
+        <div class="hero-actions">
+          <a class="btn" href="https://github.com/davidescobar98/FinANTcial-Buddy/releases/latest" data-descarga>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+            Descargar para Windows
+          </a>
+          <a class="btn btn-quiet" href="#precio">Ver qué es gratis</a>
+        </div>
+        <p class="hero-note">Gratis · Windows 10 y 11 · Castellano, català y English</p>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-ant" src="img/hormiga.png" alt="" width="260" height="280">
+        <div class="phone-cut">
+          <img src="img/movil-inicio.webp" alt="Inicio de Antdy: ahorrado ese mes 474,75 €, con ingresos de 2.450,00 € y gastos de 1.975,25 € (datos de ejemplo)" width="520" height="573">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="band">
+  <p class="wrap formats"><span>Lee los extractos que ya descargas:</span><span>BBVA</span><span>CaixaBank</span><span>Norma 43</span><span>PDF</span><span>Excel</span><span>CSV</span></p>
+</div>
+
+<section class="band section" id="privacidad">
+  <div class="wrap">
+    <h2 class="h2">Tus cuentas no salen de casa.</h2>
+    <p class="lead" style="margin-top: 16px;">Antdy no tiene servidores. Lo que importas se queda en tu ordenador y en tu móvil, y nadie más puede verlo.</p>
+    <div class="trio">
+      <div>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18"></path><path d="M5 10v8"></path><path d="M9.5 10v8"></path><path d="M14.5 10v8"></path><path d="M19 10v8"></path><path d="M3 21h18"></path><path d="M12 3 3 8h18z"></path></svg>
+        <h3>Sin registro ni claves del banco</h3>
+        <p>No creas ninguna cuenta ni das tus contraseñas. Importas los extractos que ya descargas de tu banco.</p>
+      </div>
+      <div>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+        <h3>Bajo llave</h3>
+        <p>Un PIN, tu huella o Windows Hello para abrir la app. En el móvil, además, los datos van cifrados.</p>
+      </div>
+      <div>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9a4.5 4.5 0 0 1-1 9z"></path><path d="m9.5 13.5 2 2 3.5-3.5"></path></svg>
+        <h3>Sincroniza con tu propio Drive <span class="tag">Pronto</span></h3>
+        <p>El ordenador y el móvil se ponen al día con una copia cifrada en tu Google Drive que solo tus dispositivos saben abrir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band section" id="ordenador">
+  <div class="wrap">
+    <p class="eyebrow">En tu ordenador · gratis</p>
+    <h2 class="h2" style="margin-top: 12px;">Todo lo básico, gratis y sin fecha de caducidad.</h2>
+    <div class="window">
+      <div class="window-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <!-- PROVISIONAL: captura del rediseño en curso (datos de demostración). Cambiarla por la definitiva. -->
+      <img src="img/escritorio.webp" alt="Resumen de Antdy en el ordenador: ahorrado ese mes 399,45 € y en qué se va tu dinero (datos de ejemplo)" width="1345" height="640">
+    </div>
+    <div class="features">
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M12 12v6"></path><path d="m9 15 3 3 3-3"></path></svg>
+        <div><h3>Importa en un momento</h3><p>Arrastra el extracto o deja que Antdy lo encuentre en tu Gmail. Quita los duplicados y reconoce los traspasos entre tus cuentas.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>
+        <div><h3>Gastos ordenados solos</h3><p>Categorías automáticas y reglas que aprenden de tus cambios: ese cargo de PayPal de 6,99 € pasa a llamarse «Crunchyroll».</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"></path><path d="M5 4h11l-2 4 2 4H5"></path></svg>
+        <div><h3>Presupuestos y metas</h3><p>Cómo vas este mes en cada categoría y cuánto te falta para el viaje o para tu colchón.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"></path><path d="M15 7h5v5"></path></svg>
+        <div><h3>Previsión</h3><p>Tu saldo día a día durante los próximos 60 días, con nóminas, recibos y cuotas, y cómo acabarás el mes.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <div><h3>Avisos que importan</h3><p>Un presupuesto a punto de acabarse, un cargo repetido o fuera de lo normal, una subida de precio o un recibo que está al llegar.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"></path></svg>
+        <div><h3>Pregunta a Antdy</h3><p>Escribe lo que quieras saber, como «¿Cuánto gasté en restaurantes este mes?», y te contesta con tus datos.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15v2"></path><path d="M11 11v6"></path><path d="M15 7v10"></path><path d="M19 4v13"></path></svg>
+        <div><h3>Bolsa y patrimonio</h3><p>Tus acciones, tus cuentas y todo lo que tienes, en el mismo sitio que tus gastos.</p></div>
+      </div>
+      <div class="feature">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7"></path><path d="M18.5 14.5A6.5 6.5 0 0 1 21.5 20"></path></svg>
+        <div><h3>Varias personas, un ordenador</h3><p>Cada persona con su perfil, su PIN y sus datos totalmente separados.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band section" id="movil">
+  <div class="wrap mobile">
+    <div>
+      <p class="eyebrow">App del móvil · gratis</p>
+      <h2 class="h2" style="margin-top: 12px;">El móvil para el día a día. El ordenador para entenderlo.</h2>
+      <p class="lead">Cuatro pestañas y una idea por pantalla: cuánto llevas ahorrado, tus movimientos, tu plan del mes y añadir un extracto o un gasto.</p>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Apunta un pago con tarjeta al momento. Cuando importas el extracto, se une al movimiento real y no cuenta dos veces.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Abre el extracto desde el correo o la app del banco con «Compartir → Antdy».</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>Lo que haces en el móvil aparece en tu ordenador, y al revés.</span></li>
+      </ul>
+      <div class="store-row">
+        <span class="pill">Android · muy pronto</span>
+        <span class="pill">iPhone · muy pronto</span>
+      </div>
+    </div>
+    <div class="phones">
+      <img class="phone" src="img/movil-movimientos.webp" alt="Movimientos en el móvil, agrupados por días (datos de ejemplo)" width="420" height="909">
+      <img class="phone" src="img/movil-mi-plan.webp" alt="Mi plan en el móvil: metas de ahorro, presupuestos y pagos fijos (datos de ejemplo)" width="420" height="909">
+    </div>
+  </div>
+</section>
+
+<section class="band section" id="plus">
+  <div class="wrap plus">
+    <div>
+      <p class="eyebrow">Antdy Plus · en el ordenador</p>
+      <h2 class="h2" style="margin-top: 12px;">Un plan para gastar menos, hecho con tus propias compras.</h2>
+      <p class="lead" style="margin-top: 18px;">Plus convierte tus movimientos en planes con fecha y pautas concretas, y los sigue solo cada vez que importas un extracto.</p>
+      <div class="plus-list">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><p><strong>Planes de ahorro personalizados</strong><br><span>De cuánto a cuánto bajar, en cuántas semanas y cuánto adelanta tus metas. Te avisa si te desvías.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><p><strong>Análisis a fondo</strong><br><span>Flujo del dinero, comercios, hábitos, ritmo del mes, gasto fijo y variable con tu inflación personal, e ingresos.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><p><strong>Informe en PDF</strong><br><span>Tu periodo resumido, listo para guardar o para repasarlo en casa.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><p><strong>Lo que venga después</strong><br><span>Las funciones que se añadan a Plus te llegan sin pagar más.</span></p></div>
+      </div>
+    </div>
+    <div class="plan">
+      <div class="plan-top"><span class="tag">Ejemplo con cifras ficticias</span><span class="num">Semana 3 de 8</span></div>
+      <h3>Supermercado: de 410 € a 340 € al mes</h3>
+      <p style="color: var(--muted);">Ahorras 70 € al mes y 840 € al año. «Entrada del piso» se adelanta 2 meses.</p>
+      <div class="bar" role="img" aria-label="Semana 3 de 8 del plan"><div></div></div>
+      <p class="ok">Vas 12 € por debajo del objetivo de esta semana</p>
+      <ul>
+        <li>Vas 15 veces al mes, y 7 son compras de menos de 15 € en tiendas de cercanía.</li>
+        <li>Una compra grande el sábado y una reposición el miércoles, con lista cerrada.</li>
+        <li>Tope semanal de 90 € las semanas 1 a 4 y de 85 € las semanas 5 a 8.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band section" id="precio">
+  <div class="wrap">
+    <h2 class="h2" style="text-align: center;">Un precio claro, como tus cuentas.</h2>
+    <div class="prices">
+      <div class="price">
+        <h3>Antdy</h3>
+        <p class="amount">Gratis</p>
+        <p class="terms">En el ordenador y en el móvil, para siempre.</p>
+        <ul>
+          <li>Importar extractos y Gmail</li>
+          <li>Movimientos, categorías y reglas</li>
+          <li>Presupuestos, metas, previsión y avisos</li>
+          <li>Bolsa, patrimonio y varios perfiles</li>
+          <li>App del móvil y sincronización</li>
+        </ul>
+        <a class="btn btn-quiet" href="#descargar">Descargar gratis</a>
+      </div>
+      <div class="price price-plus">
+        <div class="price-head"><h3>Antdy Plus</h3><span class="tag">Pago único</span></div>
+        <p class="amount num">19 €</p>
+        <p class="terms">Precio de lanzamiento. Después, 29 €.</p>
+        <ul>
+          <li>Todo lo de Antdy gratis</li>
+          <li>Planes de ahorro con seguimiento</li>
+          <li>Análisis a fondo e informe en PDF</li>
+          <li>En hasta 3 ordenadores</li>
+          <li>Todas las actualizaciones incluidas</li>
+        </ul>
+        <!-- Cuando abra la tienda: <a class="btn" href="[enlace de pago de Lemon Squeezy]">Comprar Plus</a> y debajo «O pruébalo gratis 30 días desde la app.» -->
+        <a class="btn" href="https://github.com/davidescobar98/FinANTcial-Buddy/releases/latest" data-descarga>Descargar con Plus incluido</a>
+        <p class="trial">Hasta que abra la tienda, Plus viene gratis en la app.</p>
+      </div>
+    </div>
+    <!-- Cuando abra la tienda: «IVA incluido. Pagas con tarjeta o PayPal y recibes tu clave por correo al momento.» -->
+    <p class="fine">La tienda abre muy pronto. Quien ya use Antdy podrá seguir con Plus 30 días de prueba al actualizar.</p>
+  </div>
+</section>
+
+<section class="band section" id="preguntas">
+  <div class="faq">
+    <h2 class="h2" style="margin-bottom: 16px;">Preguntas</h2>
+    <details open>
+      <summary>¿Dónde se guardan mis datos?</summary>
+      <p>En tu ordenador y, si usas la app, en tu móvil. Cuando actives la sincronización, también en tu propio Google Drive, cifrados con una clave que solo tienen tus dispositivos. Nadie más los ve, tampoco quien hace Antdy.</p>
+    </details>
+    <details>
+      <summary>¿Tengo que dar las claves de mi banco?</summary>
+      <p>No. Antdy trabaja con los extractos que descargas de la web o la app de tu banco, o con los que te llegan por correo.</p>
+    </details>
+    <details>
+      <summary>¿Funciona con mi banco?</summary>
+      <p>BBVA y CaixaBank se leen directamente. De cualquier otro banco español sirve el fichero Norma 43, un Excel o un CSV, y los PDF también suelen funcionar.</p>
+    </details>
+    <details>
+      <summary>¿Qué incluye el pago único de Plus?</summary>
+      <p>Plus para siempre en hasta tres ordenadores, con todas las actualizaciones. Cuando abra la tienda podrás probarlo gratis 30 días antes de comprarlo; hasta entonces viene incluido en la app.</p>
+    </details>
+    <details>
+      <summary>¿Y si no compro Plus?</summary>
+      <p>Sigues usando todo lo gratuito sin límite de tiempo ni de movimientos, y tus datos siguen ahí.</p>
+    </details>
+    <details>
+      <summary>¿Hay versión para Mac?</summary>
+      <p>Todavía no. Antdy funciona en Windows 10 y 11, y las apps de Android e iPhone llegan muy pronto.</p>
+    </details>
+  </div>
+</section>
+
+<section class="band section" id="descargar">
+  <div class="wrap cta">
+    <img src="img/hormiga.png" alt="" width="260" height="280">
+    <div>
+      <h2>Empieza con el extracto de este mes.</h2>
+      <p>En un par de minutos sabrás cuánto has ahorrado de verdad.</p>
+      <p class="version num" id="version" hidden></p>
+    </div>
+    <a class="btn" href="https://github.com/davidescobar98/FinANTcial-Buddy/releases/latest" data-descarga>Descargar para Windows</a>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap footer">
+    <span>Antdy, tu hormiga financiera</span>
+    <a href="https://davidescobar98.github.io/FinANTcial-Buddy/privacy">Privacidad</a>
+    <!-- PENDIENTE: aviso legal y condiciones de compra (con el titular, el NIF y un correo de contacto). -->
+    <a href="#aviso-legal">Aviso legal</a>
+    <a href="#condiciones">Condiciones de compra</a>
+  </div>
+</footer>
+
+<script>
+// Enlaza el botón de descarga con el instalador de la última versión publicada. Si GitHub no responde, el enlace a la página de versiones sigue sirviendo.
+(async function () {
+  try {
+    const res = await fetch('https://api.github.com/repos/davidescobar98/FinANTcial-Buddy/releases/latest', { headers: { Accept: 'application/vnd.github+json' } });
+    if (!res.ok) return;
+    const release = await res.json();
+    const setup = (release.assets || []).find(function (a) { return /^Antdy-Setup-[\d.]+\.exe$/.test(a.name); });
+    if (!setup) return;
+    document.querySelectorAll('[data-descarga]').forEach(function (a) { a.href = setup.browser_download_url; });
+    const version = document.getElementById('version');
+    version.textContent = 'Versión ' + String(release.tag_name).replace(/^v/, '') + ' · ' + Math.round(setup.size / 1048576) + ' MB';
+    version.hidden = false;
+  } catch (e) { /* sin conexión con GitHub: se queda el enlace a la página de versiones */ }
+})();
+</script>
+</body>
+</html>
