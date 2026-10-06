@@ -303,8 +303,10 @@ p { margin: 0; }
     <h2 class="h2" style="margin-top: 12px;">Todo lo básico, gratis y sin fecha de caducidad.</h2>
     <div class="window">
       <div class="window-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-      <!-- PROVISIONAL: captura del rediseño en curso (datos de demostración). Cambiarla por la definitiva. -->
-      <img src="img/escritorio.webp" alt="Resumen de Antdy en el ordenador: ahorrado ese mes 399,45 € y en qué se va tu dinero (datos de ejemplo)" width="1345" height="640">
+      <picture>
+        <source srcset="img/escritorio-oscuro.webp" media="(prefers-color-scheme: dark)">
+        <img src="img/escritorio.webp" alt="Resumen de Antdy en el ordenador: ahorrado ese mes 474,75 €, en qué se va tu dinero y próximas semanas (datos de ejemplo)" width="1360" height="900">
+      </picture>
     </div>
     <div class="features">
       <div class="feature">
