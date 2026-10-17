@@ -59,7 +59,7 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; } /* height: auto para que width/height del HTML no deformen la imagen al encogerla */
 a { color: inherit; }
 a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 h1, h2, h3 { margin: 0; text-wrap: balance; }
@@ -131,7 +131,7 @@ p { margin: 0; }
 .checks li { display: flex; gap: 12px; }
 .checks svg { flex: none; width: 22px; height: 22px; margin-top: 3px; color: var(--good); }
 .store-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.phones { display: flex; justify-content: center; gap: 16px; }
+.phones { display: flex; justify-content: center; align-items: flex-start; gap: 16px; }
 .phone { width: 44%; max-width: 220px; border: 6px solid var(--frame); border-radius: 26px; overflow: hidden; background: #FFFFFF; }
 .phones .phone:nth-child(2) { margin-top: 48px; }
 
