@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://davidescobar98.github.io/antdy/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://davidescobar98.github.io/antdy/ca/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://davidescobar98.github.io/antdy/en/"/>
+  </url>
+  <url>
+    <loc>https://davidescobar98.github.io/antdy/ca/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://davidescobar98.github.io/antdy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://davidescobar98.github.io/antdy/en/"/>
+  </url>
+  <url>
+    <loc>https://davidescobar98.github.io/antdy/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://davidescobar98.github.io/antdy/"/>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://davidescobar98.github.io/antdy/ca/"/>
+  </url>
+</urlset>
