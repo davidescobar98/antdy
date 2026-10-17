@@ -59,6 +59,7 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+picture { display: contents; } /* el <picture> no cuenta en el diseño: manda el <img> de dentro */
 img { max-width: 100%; height: auto; display: block; } /* height: auto para que width/height del HTML no deformen la imagen al encogerla */
 a { color: inherit; }
 a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
@@ -83,7 +84,7 @@ p { margin: 0; }
 .hero { background: var(--hero); color: var(--hero-ink); border-radius: 0 0 48px 48px; overflow: hidden; }
 .nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-block: 20px; }
 .logo { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; }
-.logo img { width: 34px; height: auto; }
+.logo img { width: 36px; height: auto; }
 .wordmark { font-family: var(--display); font-weight: 800; font-size: 1.625rem; letter-spacing: -0.02em; color: var(--hero-ink); }
 .wordmark b { font-weight: 800; color: var(--logo-ant); }
 .nav-links { display: flex; flex-wrap: wrap; gap: 4px 24px; font-weight: 600; font-size: 0.9375rem; }
